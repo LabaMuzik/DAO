@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 public class MyRepository {
     final static String scriptName = "join.sql";
 
-    private NamedParameterJdbcTemplate template;
+    private final NamedParameterJdbcTemplate template;
 
     @Autowired
     public MyRepository(NamedParameterJdbcTemplate template) {
@@ -32,9 +32,9 @@ public class MyRepository {
             throw new RuntimeException(e);
         }
     }
+    String product_name = read(scriptName);
 
     public List<String> getProductName(String name) {
-        String product_name = read(scriptName);
         return template.queryForList(product_name, new MapSqlParameterSource("name", name), String.class);
     }
 }
